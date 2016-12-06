@@ -1,0 +1,5 @@
+TPIntroHadoop/bin/*
+TPIntroHadoop/.*
+TPIntroHadoop/*.out*
+TPIntroHadoop/src/.*
+

@@ -1,1 +1,1 @@
-# ENSIMAG-TP_HADOOP
+School introduction practice for Hadoop

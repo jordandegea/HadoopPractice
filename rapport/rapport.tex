@@ -1,0 +1,111 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} 
+\usepackage{hyperref}
+\usepackage{amsmath,amssymb}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{xspace}
+\usepackage[french]{babel}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{listings}
+
+\usepackage[utf8]{inputenc}
+
+\geometry{hmargin=2.5cm,vmargin=2.5cm}
+\author{DANTIGNY Raynald - DE GEA Jordan}
+\title{Gestion de Données à Grande Echelle - TP Hadoop}
+
+
+\begin{document}
+\maketitle
+
+\section{Prise en main}
+
+\subsection{Exécution locale}
+
+\subsubsection{Question 1}
+\textbf{Map input records}=2 correspond au nombre de lignes en entrée. 
+\textbf{Map output records}=12 correspond au nombre de lignes en sortie.
+
+\subsubsection{Question 2}
+
+\textbf{Reduce input records} corresponds au resultat du Map et est donc égal à Map output records. 
+
+\subsubsection{Question 3}
+
+\textbf{Reduce input groups} corresponds aux nombres d'éléments différents.
+
+\subsection{Premier contact avec HDFS}
+
+Le répertoire est visible par la commande \verb$hdfs dfs -ls /user/degeaj$
+
+\verb$hadoop jar tp.jar Question_1 /data/miserables Question_1$
+
+\subsection{Execution du cluster}
+
+Nombre de split : 5.
+Ce compteur correspond au nombre de fichier dans le répertoire \verb$/data/miserables$. 
+
+
+\subsection{Combiner et nombre de reducers}
+
+\subsubsection{Question 1}
+
+Sans combiner nous avons seulement un fichier de résultat dans le dossier de sortie. Avec le combiner, nous en avons plusieurs, considérés comme des parties du résultats. \\
+Comme nous en avions défini 3, nous avons 3 parties. 
+
+\subsubsection{Question 2}
+
+Le champs \textbf{Combine input records} est différent de 0 donc le combiner a marché. 
+
+\subsubsection{Question 3}
+
+On voit que \textbf{FILE: Number of bytes read} et \textbf{FILE: Number of bytes written} ont diminué significativement. Il s'agit des IO qui sont des éléments pouvant ralentir grandement le système pour de grandes données. 
+
+\subsubsection{Bonus}
+
+Le mot le plus utilisé est "de" et est utilisé 16757 fois. 
+
+La commande est : \\
+\verb$hdfs dfs -cat /user/degeaj/Question_1/* | sort -k2,2 -n results.txt | tail -1$
+
+
+\section{Top Tag Flickr par pays en 1 job}
+
+\subsection{Map et Reduce}
+
+Ok. Trop bien. 
+
+\subsection{Combiner}
+
+\subsubsection{Question 1}
+
+Le type de données intermédiaire doit être \verb$<Text, StringAndInt>$
+
+\subsubsection{Question 2}
+
+Je pense qu'il peut y avoir un dépassement de mémoire si il y a vraiment beaucoup beaucoup beaucoup de données de données. 
+
+\section{Flick par pays en 2 jobs}
+
+Nous avons un exemple avec le pays "WI". Nous avons les mots africa et desert avec 295 occurences. A cause du Combiner sur le Job 2, l'ordre peut ne pas être le même entre plusieurs executions. 
+
+
+\section{Conclusion \& Amélioration}
+
+Très bon TP. Vraiment appréciable. \\
+Sur certains problèmes comme la gestion des indexes en sorties du reducers et pour la localisation des variables, il serait utile d'avoir des indications en dehors du cours. De cette manière, il est possible de travailler en dehors des heures de TP sans être bloqué. 
+
+
+
+
+
+
+
+
+
+
+\end{document}
